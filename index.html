@@ -280,6 +280,7 @@
 
     <script>
         lucide.createIcons();
+    
 
         // Dummy data for numbers and messages
         // const countryData = {
@@ -353,6 +354,8 @@
         let selectedNumberData = null;
         let currentPage = 1;
         const PAGE_SIZE = 10;
+        let isInitialLoad = true;
+
 
 
         // Sticky navbar
@@ -456,10 +459,21 @@
 
         // Load numbers for selected country
         function loadNumbers() {
-            const country = document.getElementById('countrySelect').value;
-
-            // ✅ SAVE COUNTRY
+            const select = document.getElementById('countrySelect');
+            let country = select.value;
+        
+            // ✅ RESTORE SAVED COUNTRY ON FIRST LOAD ONLY
+            if (isInitialLoad) {
+                const savedCountry = localStorage.getItem("selectedCountry");
+                if (savedCountry && countryData[savedCountry]) {
+                    country = savedCountry;
+                    select.value = savedCountry;
+                }
+            }
+        
+            // ✅ SAVE COUNTRY AFTER RESTORE
             localStorage.setItem("selectedCountry", country);
+
 
             if (!window.countryData || !countryData[country]) {
                 document.getElementById('numbersList').innerHTML =
@@ -773,6 +787,8 @@
             document.getElementById('refreshIndicator').classList.remove('hidden');
         
             displayMessagesPaginated();
+            isInitialLoad = false;
+
         }
 
 
@@ -780,6 +796,7 @@
 </body>
 
 </html>
+
 
 
 
