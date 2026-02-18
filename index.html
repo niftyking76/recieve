@@ -518,8 +518,21 @@
             
             lucide.createIcons();
             updateCountryStats(country);
+            reapplyActiveNumber(); // ✅ keep selected number highlighted
+
 
         }
+
+        function reapplyActiveNumber() {
+            if (!selectedNumberData) return;
+        
+            document.querySelectorAll('.number-card').forEach(card => {
+                if (card.textContent.includes(selectedNumberData.number)) {
+                    card.classList.add('active');
+                }
+            });
+        }
+
 
         function updateCountryStats(countryKey) {
             if (!countryData || !countryData[countryKey]) {
@@ -881,6 +894,7 @@
 </body>
 
 </html>
+
 
 
 
