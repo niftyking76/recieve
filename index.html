@@ -458,6 +458,9 @@
         function loadNumbers() {
             const country = document.getElementById('countrySelect').value;
 
+            // ✅ SAVE COUNTRY
+            localStorage.setItem("selectedCountry", country);
+
             if (!window.countryData || !countryData[country]) {
                 document.getElementById('numbersList').innerHTML =
                   '<p class="p-4 text-sm text-gray-500">No numbers available</p>';
@@ -532,6 +535,9 @@
         // Select a number and show messages
         function selectNumber(numberData, country, event) {
             currentPage = 1;
+            // ✅ SAVE SELECTED NUMBER + PAGE
+            localStorage.setItem("selectedNumber", numberData.number);
+            localStorage.setItem("currentPage", currentPage);
             document.getElementById('paginationBar').innerHTML = "";
 
             selectedNumberData = numberData;
@@ -663,6 +669,7 @@
                 `;
                 btn.onclick = () => {
                     currentPage = i;
+                    localStorage.setItem("currentPage", currentPage);
                     displayMessagesPaginated();
                 };
                 pagination.appendChild(btn);
@@ -674,6 +681,7 @@
             next.onclick = () => {
                 if (currentPage < totalPages) {
                     currentPage++;
+                    localStorage.setItem("currentPage", currentPage);
                     displayMessagesPaginated();
                 }
             };
@@ -715,7 +723,7 @@
 
 
         // Initialize
-        loadSheetData();
+        loadSheetData().then(restoreUIState);
         setInterval(loadSheetData, 15000); // refresh every 15 seconds
 
         
@@ -727,23 +735,52 @@
             loadNumbers();
         }
 
-        // function isToday(timestamp) {
-        //     if (!timestamp) return false;
+        function restoreUIState() {
+            const savedCountry = localStorage.getItem("selectedCountry");
+            const savedNumber = localStorage.getItem("selectedNumber");
+            const savedPage = parseInt(localStorage.getItem("currentPage"), 10) || 1;
         
-        //     const msgDate = new Date(timestamp);
-        //     const now = new Date();
+            if (!savedCountry || !countryData[savedCountry]) return;
         
-        //     return (
-        //         msgDate.getFullYear() === now.getFullYear() &&
-        //         msgDate.getMonth() === now.getMonth() &&
-        //         msgDate.getDate() === now.getDate()
-        //     );
-        // }
+            // Restore country
+            document.getElementById("countrySelect").value = savedCountry;
+            loadNumbers();
+        
+            // Restore number
+            const numbers = countryData[savedCountry].numbers;
+            const numberObj = numbers.find(n => n.number === savedNumber);
+        
+            if (!numberObj) return;
+        
+            currentPage = savedPage;
+            selectedNumberData = numberObj;
+        
+            // Highlight number card
+            setTimeout(() => {
+                document.querySelectorAll('.number-card').forEach(card => {
+                    if (card.textContent.includes(savedNumber)) {
+                        card.classList.add('active');
+                    }
+                });
+            }, 100);
+        
+            // Update header
+            document.getElementById('selectedNumber').textContent = numberObj.number;
+            document.getElementById('selectedCountry').textContent =
+                countryData[savedCountry].name;
+        
+            document.getElementById('selectedNumberIcon').classList.remove('hidden');
+            document.getElementById('refreshIndicator').classList.remove('hidden');
+        
+            displayMessagesPaginated();
+        }
+
 
     </script>
 </body>
 
 </html>
+
 
 
 
