@@ -357,21 +357,21 @@
         let isInitialLoad = true;
         let lastMessageCount = 0;
 
-        const serviceColors = {
-            Telegram: "bg-blue-100 text-blue-700",
-            WhatsApp: "bg-green-100 text-green-700",
-            Google: "bg-red-100 text-red-700",
-            Facebook: "bg-indigo-100 text-indigo-700",
-            Instagram: "bg-pink-100 text-pink-700",
-            Twitter: "bg-sky-100 text-sky-700",
-            Discord: "bg-violet-100 text-violet-700",
-            Snapchat: "bg-yellow-100 text-yellow-700",
-            TikTok: "bg-gray-100 text-gray-800",
-            PayPal: "bg-blue-50 text-blue-800",
-            Apple: "bg-gray-200 text-gray-900"
-        };
+        // const serviceColors = {
+        //     Telegram: "bg-blue-100 text-blue-700",
+        //     WhatsApp: "bg-green-100 text-green-700",
+        //     Google: "bg-red-100 text-red-700",
+        //     Facebook: "bg-indigo-100 text-indigo-700",
+        //     Instagram: "bg-pink-100 text-pink-700",
+        //     Twitter: "bg-sky-100 text-sky-700",
+        //     Discord: "bg-violet-100 text-violet-700",
+        //     Snapchat: "bg-yellow-100 text-yellow-700",
+        //     TikTok: "bg-gray-100 text-gray-800",
+        //     PayPal: "bg-blue-50 text-blue-800",
+        //     Apple: "bg-gray-200 text-gray-900"
+        // };
         
-        const colorClass = serviceColors[msg.service] || "bg-gray-100 text-gray-700";
+        // const colorClass = serviceColors[msg.service] || "bg-gray-100 text-gray-700";
 
 
 
@@ -713,7 +713,8 @@
         
                 div.innerHTML = `
                     <div class="flex justify-between items-start mb-2">
-                        <span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium ${colorClass}">
+                        // <span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium ${colorClass}">   
+                        <span class="inline-flex px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-700">
                             ${msg.service}
                         </span>
                         <span class="text-xs text-gray-500">${msg.time}</span>
@@ -777,25 +778,25 @@
                 alert('Code copied: ' + code);
             });
         }
-        function formatTimeAgo(timeValue) {
-            if (!timeValue) return "";
+        // function formatTimeAgo(timeValue) {
+        //     if (!timeValue) return "";
         
-            const date = new Date(timeValue.replace(" ", "T"));
-            if (isNaN(date)) return "";
+        //     const date = new Date(timeValue.replace(" ", "T"));
+        //     if (isNaN(date)) return "";
         
-            const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+        //     const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
         
-            if (seconds < 60) return "Just now";
+        //     if (seconds < 60) return "Just now";
         
-            const minutes = Math.floor(seconds / 60);
-            if (minutes < 60) return `${minutes} min ago`;
+        //     const minutes = Math.floor(seconds / 60);
+        //     if (minutes < 60) return `${minutes} min ago`;
         
-            const hours = Math.floor(minutes / 60);
-            if (hours < 24) return `${hours} hr ago`;
+        //     const hours = Math.floor(minutes / 60);
+        //     if (hours < 24) return `${hours} hr ago`;
         
-            const days = Math.floor(hours / 24);
-            return `${days} day${days > 1 ? "s" : ""} ago`;
-        }
+        //     const days = Math.floor(hours / 24);
+        //     return `${days} day${days > 1 ? "s" : ""} ago`;
+        // }
 
 
         function isToday(timeValue) {
@@ -958,6 +959,7 @@
 </body>
 
 </html>
+
 
 
 
