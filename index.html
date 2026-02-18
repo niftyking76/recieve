@@ -162,12 +162,13 @@
                 <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-sm font-medium text-indigo-900">Messages Today</span>
-                        <span class="text-lg font-bold text-indigo-600">0</span>
+                        <span id="messagesToday" class="text-lg font-bold text-indigo-600">0</span>
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="text-sm font-medium text-indigo-900">Active Numbers</span>
-                        <span class="text-lg font-bold text-indigo-600">0</span>
+                        <span id="activeNumbers" class="text-lg font-bold text-indigo-600">0</span>
                     </div>
+
                 </div>
             </div>
 
@@ -685,7 +686,14 @@
         function isToday(timeValue) {
             if (!timeValue) return false;
         
-            const parsed = new Date(timeValue.replace(" ", "T"));
+            let parsed;
+        
+            if (typeof timeValue === "string") {
+                parsed = new Date(timeValue.replace(" ", "T"));
+            } else {
+                parsed = new Date(timeValue);
+            }
+        
             if (isNaN(parsed)) return false;
         
             const now = new Date();
@@ -711,23 +719,24 @@
             loadNumbers();
         }
 
-        function isToday(timestamp) {
-            if (!timestamp) return false;
+        // function isToday(timestamp) {
+        //     if (!timestamp) return false;
         
-            const msgDate = new Date(timestamp);
-            const now = new Date();
+        //     const msgDate = new Date(timestamp);
+        //     const now = new Date();
         
-            return (
-                msgDate.getFullYear() === now.getFullYear() &&
-                msgDate.getMonth() === now.getMonth() &&
-                msgDate.getDate() === now.getDate()
-            );
-        }
+        //     return (
+        //         msgDate.getFullYear() === now.getFullYear() &&
+        //         msgDate.getMonth() === now.getMonth() &&
+        //         msgDate.getDate() === now.getDate()
+        //     );
+        // }
 
     </script>
 </body>
 
 </html>
+
 
 
 
