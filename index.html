@@ -162,11 +162,11 @@
                 <div class="bg-indigo-50 rounded-xl p-4 border border-indigo-100">
                     <div class="flex items-center justify-between mb-2">
                         <span class="text-sm font-medium text-indigo-900">Messages Today</span>
-                        <span class="text-lg font-bold text-indigo-600">1,247</span>
+                        <span class="text-lg font-bold text-indigo-600">0</span>
                     </div>
                     <div class="flex items-center justify-between">
                         <span class="text-sm font-medium text-indigo-900">Active Numbers</span>
-                        <span class="text-lg font-bold text-indigo-600">46</span>
+                        <span class="text-lg font-bold text-indigo-600">0</span>
                     </div>
                 </div>
             </div>
@@ -452,6 +452,9 @@
             if (!window.countryData || !countryData[country]) {
                 document.getElementById('numbersList').innerHTML =
                   '<p class="p-4 text-sm text-gray-500">No numbers available</p>';
+                document.getElementById('messagesToday').textContent = "0";
+                document.getElementById('activeNumbers').textContent = "0";
+
                 return;
             }
         
@@ -483,7 +486,28 @@
             });
             
             lucide.createIcons();
+            updateCountryStats(country);
+
         }
+
+        function updateCountryStats(countryKey) {
+            if (!countryData[countryKey]) return;
+        
+            const numbers = countryData[countryKey].numbers;
+        
+            let totalMessages = 0;
+        
+            numbers.forEach(num => {
+                totalMessages += num.messages.length;
+            });
+        
+            document.getElementById('messagesToday').textContent =
+                totalMessages.toLocaleString();
+        
+            document.getElementById('activeNumbers').textContent =
+                numbers.length.toLocaleString();
+        }
+
 
         currentPage = 1;
         // Select a number and show messages
@@ -664,6 +688,7 @@
 </body>
 
 </html>
+
 
 
 
