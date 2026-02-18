@@ -360,6 +360,7 @@
 
 
 
+
         // Sticky navbar
         window.addEventListener('scroll', function() {
             const navbar = document.getElementById('navbar');
@@ -454,7 +455,8 @@
             const selectedCountry = document.getElementById("countrySelect").value;
             loadNumbers();
             updateCountryStats(selectedCountry);
-            checkForNewMessages();
+            setTimeout(checkForNewMessages, 0);
+
         }
         
                
@@ -571,6 +573,7 @@
             document.getElementById('refreshIndicator').classList.remove('hidden');
             
             displayMessagesPaginated();
+            selectedNumberValue = numberData.number; // ✅ ADD THIS
             lastMessageCount = numberData.messages.length;
 
 
@@ -797,21 +800,35 @@
         }
 
         function checkForNewMessages() {
-            if (!selectedNumberData) return;
+            if (!selectedNumberValue || !countryData) return;
         
-            const currentCount = selectedNumberData.messages.length;
+            const country = document.getElementById("countrySelect").value;
+            const numbers = countryData[country]?.numbers || [];
+        
+            const currentNumber = numbers.find(
+                n => n.number === selectedNumberValue
+            );
+        
+            if (!currentNumber) return;
+        
+            const currentCount = currentNumber.messages.length;
         
             if (currentCount > lastMessageCount) {
                 const newMessages = currentCount - lastMessageCount;
         
                 showNotification(
                     `📩 ${newMessages} new SMS received`,
-                    selectedNumberData.number
+                    currentNumber.number
                 );
         
                 lastMessageCount = currentCount;
+        
+                // refresh inbox automatically
+                selectedNumberData = currentNumber;
+                displayMessagesPaginated();
             }
         }
+       
 
         function showNotification(title, body) {
             // Browser notification (requires permission)
@@ -845,6 +862,7 @@
 </body>
 
 </html>
+
 
 
 
