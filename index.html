@@ -247,73 +247,73 @@
         lucide.createIcons();
 
         // Dummy data for numbers and messages
-        const countryData = {
-            usa: {
-                name: 'United States',
-                numbers: [
-                    { number: '+1 (555) 123-4567', messages: [
-                        { service: 'Telegram', code: '839201', time: '2 min ago', fullMessage: 'Your login code is 839201. Do not share this code with anyone.' },
-                        { service: 'WhatsApp', code: '447-221', time: '5 min ago', fullMessage: 'Your WhatsApp verification code is 447-221' },
-                        { service: 'Google', code: 'G-123456', time: '12 min ago', fullMessage: 'G-123456 is your Google verification code' },
-                        { service: 'Facebook', code: '654321', time: '25 min ago', fullMessage: '654321 is your Facebook confirmation code' }
-                    ]},
-                    { number: '+1 (555) 987-6543', messages: [
-                        { service: 'Instagram', code: '112233', time: '1 min ago', fullMessage: 'Your Instagram verification code is 112233' },
-                        { service: 'Telegram', code: '445566', time: '8 min ago', fullMessage: 'Your Telegram code is 445566' }
-                    ]},
-                    { number: '+1 (555) 456-7890', messages: [
-                        { service: 'Twitter', code: '778899', time: '3 min ago', fullMessage: 'Your Twitter confirmation code is 778899' }
-                    ]}
-                ]
-            },
-            uk: {
-                name: 'United Kingdom',
-                numbers: [
-                    { number: '+44 20 7123 4567', messages: [
-                        { service: 'WhatsApp', code: '998877', time: '4 min ago', fullMessage: 'Your WhatsApp code: 998877' },
-                        { service: 'Google', code: 'G-554433', time: '15 min ago', fullMessage: 'G-554433 is your Google verification code' }
-                    ]},
-                    { number: '+44 20 7987 6543', messages: [
-                        { service: 'Telegram', code: '223344', time: '6 min ago', fullMessage: 'Your login code is 223344. Do not share.' }
-                    ]}
-                ]
-            },
-            india: {
-                name: 'India',
-                numbers: [
-                    { number: '+91 98765 43210', messages: [
-                        { service: 'Google', code: 'G-887766', time: '1 min ago', fullMessage: 'G-887766 is your Google verification code' },
-                        { service: 'Telegram', code: '554433', time: '7 min ago', fullMessage: 'Your code is 554433' },
-                        { service: 'WhatsApp', code: '112233', time: '20 min ago', fullMessage: 'Your WhatsApp verification code: 112233' }
-                    ]},
-                    { number: '+91 98765 12345', messages: [
-                        { service: 'Facebook', code: '667788', time: '9 min ago', fullMessage: '667788 is your FB confirmation code' }
-                    ]}
-                ]
-            },
-            canada: {
-                name: 'Canada',
-                numbers: [
-                    { number: '+1 (416) 555-0123', messages: [
-                        { service: 'Telegram', code: '334455', time: '5 min ago', fullMessage: 'Your login code is 334455' }
-                    ]},
-                    { number: '+1 (416) 555-0456', messages: [
-                        { service: 'Google', code: 'G-112233', time: '11 min ago', fullMessage: 'G-112233 is your Google code' }
-                    ]}
-                ]
-            },
-            germany: {
-                name: 'Germany',
-                numbers: [
-                    { number: '+49 30 12345678', messages: [
-                        { service: 'WhatsApp', code: '445566', time: '8 min ago', fullMessage: 'Dein WhatsApp-Code: 445566' }
-                    ]},
-                    { number: '+49 30 87654321', messages: [
-                        { service: 'Telegram', code: '778899', time: '14 min ago', fullMessage: 'Dein Telegram-Code: 778899' }
-                    ]}
-                ]
-            }
-        };
+        // const countryData = {
+        //     usa: {
+        //         name: 'United States',
+        //         numbers: [
+        //             { number: '+1 (555) 123-4567', messages: [
+        //                 { service: 'Telegram', code: '839201', time: '2 min ago', fullMessage: 'Your login code is 839201. Do not share this code with anyone.' },
+        //                 { service: 'WhatsApp', code: '447-221', time: '5 min ago', fullMessage: 'Your WhatsApp verification code is 447-221' },
+        //                 { service: 'Google', code: 'G-123456', time: '12 min ago', fullMessage: 'G-123456 is your Google verification code' },
+        //                 { service: 'Facebook', code: '654321', time: '25 min ago', fullMessage: '654321 is your Facebook confirmation code' }
+        //             ]},
+        //             { number: '+1 (555) 987-6543', messages: [
+        //                 { service: 'Instagram', code: '112233', time: '1 min ago', fullMessage: 'Your Instagram verification code is 112233' },
+        //                 { service: 'Telegram', code: '445566', time: '8 min ago', fullMessage: 'Your Telegram code is 445566' }
+        //             ]},
+        //             { number: '+1 (555) 456-7890', messages: [
+        //                 { service: 'Twitter', code: '778899', time: '3 min ago', fullMessage: 'Your Twitter confirmation code is 778899' }
+        //             ]}
+        //         ]
+        //     },
+        //     uk: {
+        //         name: 'United Kingdom',
+        //         numbers: [
+        //             { number: '+44 20 7123 4567', messages: [
+        //                 { service: 'WhatsApp', code: '998877', time: '4 min ago', fullMessage: 'Your WhatsApp code: 998877' },
+        //                 { service: 'Google', code: 'G-554433', time: '15 min ago', fullMessage: 'G-554433 is your Google verification code' }
+        //             ]},
+        //             { number: '+44 20 7987 6543', messages: [
+        //                 { service: 'Telegram', code: '223344', time: '6 min ago', fullMessage: 'Your login code is 223344. Do not share.' }
+        //             ]}
+        //         ]
+        //     },
+        //     india: {
+        //         name: 'India',
+        //         numbers: [
+        //             { number: '+91 98765 43210', messages: [
+        //                 { service: 'Google', code: 'G-887766', time: '1 min ago', fullMessage: 'G-887766 is your Google verification code' },
+        //                 { service: 'Telegram', code: '554433', time: '7 min ago', fullMessage: 'Your code is 554433' },
+        //                 { service: 'WhatsApp', code: '112233', time: '20 min ago', fullMessage: 'Your WhatsApp verification code: 112233' }
+        //             ]},
+        //             { number: '+91 98765 12345', messages: [
+        //                 { service: 'Facebook', code: '667788', time: '9 min ago', fullMessage: '667788 is your FB confirmation code' }
+        //             ]}
+        //         ]
+        //     },
+        //     canada: {
+        //         name: 'Canada',
+        //         numbers: [
+        //             { number: '+1 (416) 555-0123', messages: [
+        //                 { service: 'Telegram', code: '334455', time: '5 min ago', fullMessage: 'Your login code is 334455' }
+        //             ]},
+        //             { number: '+1 (416) 555-0456', messages: [
+        //                 { service: 'Google', code: 'G-112233', time: '11 min ago', fullMessage: 'G-112233 is your Google code' }
+        //             ]}
+        //         ]
+        //     },
+        //     germany: {
+        //         name: 'Germany',
+        //         numbers: [
+        //             { number: '+49 30 12345678', messages: [
+        //                 { service: 'WhatsApp', code: '445566', time: '8 min ago', fullMessage: 'Dein WhatsApp-Code: 445566' }
+        //             ]},
+        //             { number: '+49 30 87654321', messages: [
+        //                 { service: 'Telegram', code: '778899', time: '14 min ago', fullMessage: 'Dein Telegram-Code: 778899' }
+        //             ]}
+        //         ]
+        //     }
+        // };
 
         let selectedNumberData = null;
 
@@ -332,6 +332,81 @@
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
         }
+        // <script>
+        const SHEET_ID = "1uml8_D_bCd1eZoGVA1Xqs5y_JzrqMl3utu2g-jhvQZw";
+        
+        const NUMBERS_URL =
+          `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=numbers`;
+        
+        const MESSAGES_URL =
+          `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=messages`;
+        
+        function parseGoogleJSON(text) {
+          return JSON.parse(text.substring(47).slice(0, -2)).table.rows;
+        }
+        
+        async function loadSheetData() {
+          const [numbersRes, messagesRes] = await Promise.all([
+            fetch(NUMBERS_URL),
+            fetch(MESSAGES_URL)
+          ]);
+        
+          const numbersText = await numbersRes.text();
+          const messagesText = await messagesRes.text();
+        
+          const numbersRows = parseGoogleJSON(numbersText);
+          const messagesRows = parseGoogleJSON(messagesText);
+        
+          const data = {};
+        
+          // 🔹 Build countries & numbers
+          numbersRows.forEach(r => {
+            const country = r.c[0]?.v;
+            const countryName = r.c[1]?.v;
+            const number = r.c[2]?.v;
+            const status = r.c[3]?.v;
+        
+            if (status !== "active") return;
+        
+            if (!data[country]) {
+              data[country] = { name: countryName, numbers: [] };
+            }
+        
+            data[country].numbers.push({
+              number,
+              messages: []
+            });
+          });
+        
+          // 🔹 Attach messages to numbers
+          messagesRows.forEach(r => {
+            const number = r.c[0]?.v;
+            const service = r.c[1]?.v;
+            const code = r.c[2]?.v;
+            const message = r.c[3]?.v;
+            const time = r.c[4]?.v;
+            const status = r.c[5]?.v;
+        
+            if (status !== "active") return;
+        
+            Object.values(data).forEach(country => {
+              const num = country.numbers.find(n => n.number === number);
+              if (num) {
+                num.messages.push({
+                  service,
+                  code,
+                  fullMessage: message,
+                  time
+                });
+              }
+            });
+          });
+        
+          window.countryData = data;
+          loadNumbers();
+        }
+       
+
 
         // Load numbers for selected country
         function loadNumbers() {
@@ -445,6 +520,8 @@
 
         // Initialize
         loadNumbers();
+        setInterval(loadSheetData, 15000); // refresh every 15 seconds
+
         
         // Check URL params for country
         const urlParams = new URLSearchParams(window.location.search);
@@ -457,6 +534,7 @@
 </body>
 
 </html>
+
 
 
 
