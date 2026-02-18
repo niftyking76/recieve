@@ -820,6 +820,9 @@
                     `📩 ${newMessages} new SMS received`,
                     currentNumber.number
                 );
+
+                playNotificationSound(); // 🔔 play sound
+
         
                 lastMessageCount = currentCount;
         
@@ -855,13 +858,30 @@
             setTimeout(() => toast.remove(), 4000);
         }
 
+        function playNotificationSound() {
+            const sound = document.getElementById("notificationSound");
+            if (!sound) return;
+        
+            sound.currentTime = 0;
+            sound.play().catch(() => {
+                // autoplay blocked until user interaction (normal behavior)
+            });
+        }
+
+
 
 
 
     </script>
+
+<audio id="notificationSound" preload="auto">
+    <source src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3" type="audio/mpeg">
+</audio>
+
 </body>
 
 </html>
+
 
 
 
