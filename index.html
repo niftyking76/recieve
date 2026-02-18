@@ -355,6 +355,8 @@
         let currentPage = 1;
         const PAGE_SIZE = 10;
         let isInitialLoad = true;
+        let lastMessageCount = 0;
+
 
 
 
@@ -452,6 +454,7 @@
             const selectedCountry = document.getElementById("countrySelect").value;
             loadNumbers();
             updateCountryStats(selectedCountry);
+            checkForNewMessages();
         }
         
                
@@ -568,6 +571,8 @@
             document.getElementById('refreshIndicator').classList.remove('hidden');
             
             displayMessagesPaginated();
+            lastMessageCount = numberData.messages.length;
+
 
         }
 
@@ -791,11 +796,56 @@
 
         }
 
+        function checkForNewMessages() {
+            if (!selectedNumberData) return;
+        
+            const currentCount = selectedNumberData.messages.length;
+        
+            if (currentCount > lastMessageCount) {
+                const newMessages = currentCount - lastMessageCount;
+        
+                showNotification(
+                    `📩 ${newMessages} new SMS received`,
+                    selectedNumberData.number
+                );
+        
+                lastMessageCount = currentCount;
+            }
+        }
+
+        function showNotification(title, body) {
+            // Browser notification (requires permission)
+            if ("Notification" in window) {
+                if (Notification.permission === "granted") {
+                    new Notification(title, { body });
+                } else if (Notification.permission !== "denied") {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                            new Notification(title, { body });
+                        }
+                    });
+                }
+            }
+        
+            // Fallback toast (always visible)
+            const toast = document.createElement("div");
+            toast.className =
+                "fixed bottom-6 right-6 bg-indigo-600 text-white px-4 py-3 rounded-lg shadow-lg z-50 animate-bounce";
+            toast.innerHTML = `<strong>${title}</strong><br><span class="text-sm">${body}</span>`;
+        
+            document.body.appendChild(toast);
+        
+            setTimeout(() => toast.remove(), 4000);
+        }
+
+
+
 
     </script>
 </body>
 
 </html>
+
 
 
 
