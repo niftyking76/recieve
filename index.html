@@ -491,22 +491,31 @@
         }
 
         function updateCountryStats(countryKey) {
-            if (!countryData[countryKey]) return;
+            if (!countryData || !countryData[countryKey]) {
+                document.getElementById('messagesToday').textContent = "0";
+                document.getElementById('activeNumbers').textContent = "0";
+                return;
+            }
         
             const numbers = countryData[countryKey].numbers;
         
-            let totalMessages = 0;
+            let todayMessages = 0;
         
             numbers.forEach(num => {
-                totalMessages += num.messages.length;
+                num.messages.forEach(msg => {
+                    if (isToday(msg.time)) {
+                        todayMessages++;
+                    }
+                });
             });
         
             document.getElementById('messagesToday').textContent =
-                totalMessages.toLocaleString();
+                todayMessages.toLocaleString();
         
             document.getElementById('activeNumbers').textContent =
                 numbers.length.toLocaleString();
         }
+        
 
 
         currentPage = 1;
@@ -684,10 +693,25 @@
             document.getElementById('countrySelect').value = countryParam;
             loadNumbers();
         }
+
+        function isToday(timestamp) {
+            if (!timestamp) return false;
+        
+            const msgDate = new Date(timestamp);
+            const now = new Date();
+        
+            return (
+                msgDate.getFullYear() === now.getFullYear() &&
+                msgDate.getMonth() === now.getMonth() &&
+                msgDate.getDate() === now.getDate()
+            );
+        }
+
     </script>
 </body>
 
 </html>
+
 
 
 
