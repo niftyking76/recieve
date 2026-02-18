@@ -411,6 +411,14 @@
         // Load numbers for selected country
         function loadNumbers() {
             const country = document.getElementById('countrySelect').value;
+
+            if (!window.countryData || !countryData[country]) {
+                document.getElementById('numbersList').innerHTML =
+                  '<p class="p-4 text-sm text-gray-500">No numbers available</p>';
+                return;
+            }
+        
+            
             const data = countryData[country];
             const list = document.getElementById('numbersList');
             
@@ -419,7 +427,7 @@
             data.numbers.forEach((num, index) => {
                 const div = document.createElement('div');
                 div.className = 'number-card p-4 cursor-pointer hover:bg-gray-50 transition';
-                div.onclick = () => selectNumber(num, country);
+                div.onclick = (e) => selectNumber(num, country, e);
                 div.innerHTML = `
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-3">
@@ -441,7 +449,8 @@
         }
 
         // Select a number and show messages
-        function selectNumber(numberData, country) {
+        function selectNumber(numberData, country, event) {
+
             selectedNumberData = numberData;
             
             // Update UI
@@ -519,7 +528,7 @@
         }
 
         // Initialize
-        loadNumbers();
+        loadSheetData();
         setInterval(loadSheetData, 15000); // refresh every 15 seconds
 
         
@@ -534,6 +543,7 @@
 </body>
 
 </html>
+
 
 
 
