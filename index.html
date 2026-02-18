@@ -515,6 +515,7 @@
             document.getElementById('activeNumbers').textContent =
                 numbers.length.toLocaleString();
         }
+ 
         
 
 
@@ -681,6 +682,22 @@
             });
         }
 
+        function isToday(timeValue) {
+            if (!timeValue) return false;
+        
+            const parsed = new Date(timeValue.replace(" ", "T"));
+            if (isNaN(parsed)) return false;
+        
+            const now = new Date();
+        
+            return (
+                parsed.getFullYear() === now.getFullYear() &&
+                parsed.getMonth() === now.getMonth() &&
+                parsed.getDate() === now.getDate()
+            );
+        }
+
+
         // Initialize
         loadSheetData();
         setInterval(loadSheetData, 15000); // refresh every 15 seconds
@@ -711,6 +728,7 @@
 </body>
 
 </html>
+
 
 
 
