@@ -383,67 +383,75 @@
           return JSON.parse(text.substring(47).slice(0, -2)).table.rows;
         }
         
-        async function loadSheetData() {
-          const [numbersRes, messagesRes] = await Promise.all([
-            fetch(NUMBERS_URL),
-            fetch(MESSAGES_URL)
-          ]);
-        
-          const numbersText = await numbersRes.text();
-          const messagesText = await messagesRes.text();
-        
-          const numbersRows = parseGoogleJSON(numbersText);
-          const messagesRows = parseGoogleJSON(messagesText);
-        
-          const data = {};
-        
-          // 🔹 Build countries & numbers
-          numbersRows.forEach(r => {
-            const country = r.c[0]?.v;
-            const countryName = r.c[1]?.v;
-            const number = r.c[2]?.v;
-            const status = r.c[3]?.v;
-        
-            if (status !== "active") return;
-        
-            if (!data[country]) {
-              data[country] = { name: countryName, numbers: [] };
-            }
-        
-            data[country].numbers.push({
-              number,
-              messages: []
-            });
-          });
-        
-          // 🔹 Attach messages to numbers
-          messagesRows.forEach(r => {
-            const number = r.c[0]?.v;
-            const service = r.c[1]?.v;
-            const code = r.c[2]?.v;
-            const message = r.c[3]?.v;
-            const time = r.c[4]?.v;
-            const status = r.c[5]?.v;
-        
-            if (status !== "active") return;
-        
-            Object.values(data).forEach(country => {
-              const num = country.numbers.find(n => n.number === number);
-              if (num) {
-                num.messages.push({
-                  service,
-                  code,
-                  fullMessage: message,
-                  time
-                });
-              }
-            });
-          });
-        
-          window.countryData = data;
-          loadNumbers();
-        }
        
+         async function loadSheetData() {
+            const [numbersRes, messagesRes] = await Promise.all([
+                fetch(NUMBERS_URL),
+                fetch(MESSAGES_URL)
+            ]);
+        
+            const numbersText = await numbersRes.text();
+            const messagesText = await messagesRes.text();
+        
+            const numbersRows = parseGoogleJSON(numbersText);
+            const messagesRows = parseGoogleJSON(messagesText);
+        
+            const data = {};
+            const numberMap = {}; // 🔥 FAST LOOKUP MAP
+        
+            // 🔹 Build countries & numbers
+            numbersRows.forEach(r => {
+                const country = r.c[0]?.v;
+                const countryName = r.c[1]?.v;
+                const number = r.c[2]?.v;
+                const status = r.c[3]?.v;
+        
+                if (status !== "active") return;
+        
+                if (!data[country]) {
+                    data[country] = { name: countryName, numbers: [] };
+                }
+        
+                const numberObj = {
+                    number,
+                    messages: []
+                };
+        
+                data[country].numbers.push(numberObj);
+                numberMap[number] = numberObj; // 🔥 map it
+            });
+        
+            // 🔹 Attach messages in O(n)
+            messagesRows.forEach(r => {
+                const number = r.c[0]?.v;
+                const service = r.c[1]?.v;
+                const code = r.c[2]?.v;
+                const message = r.c[3]?.v;
+                const time = r.c[4]?.v;
+                const status = r.c[5]?.v;
+        
+                if (status !== "active") return;
+        
+                const targetNumber = numberMap[number];
+                if (!targetNumber) return;
+        
+                targetNumber.messages.push({
+                    service,
+                    code,
+                    fullMessage: message,
+                    time
+                });
+            });
+        
+            window.countryData = data;
+        
+            // 🔄 auto-refresh UI + stats
+            const selectedCountry = document.getElementById("countrySelect").value;
+            loadNumbers();
+            updateCountryStats(selectedCountry);
+        }
+        
+               
 
 
         // Load numbers for selected country
@@ -736,6 +744,7 @@
 </body>
 
 </html>
+
 
 
 
