@@ -473,9 +473,9 @@
         
             // 🔄 auto-refresh UI + stats
             const selectedCountry = document.getElementById("countrySelect").value;
-            loadNumbers();
+          
             updateCountryStats(selectedCountry);
-            setTimeout(checkForNewMessages, 0);
+            
 
         }
         
@@ -856,7 +856,9 @@
 
 
         // Initialize
-        loadSheetData().then(restoreUIState);
+        loadSheetData().then(() => {
+            restoreUIState();
+        });
         setInterval(loadSheetData, 15000); // refresh every 15 seconds
 
         
@@ -992,6 +994,7 @@
 </body>
 
 </html>
+
 
 
 
