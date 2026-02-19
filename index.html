@@ -372,7 +372,7 @@
             Apple: "bg-gray-200 text-gray-900"
         };
         
-        const colorClass = serviceColors[msg.service] || "bg-gray-100 text-gray-700";
+        
 
 
 
@@ -469,7 +469,7 @@
                 });
             });
         
-            window.countryData = data;
+            countryData = data;
         
             // 🔄 auto-refresh UI + stats
             const selectedCountry = document.getElementById("countrySelect").value;
@@ -992,6 +992,7 @@
 </body>
 
 </html>
+
 
 
 
